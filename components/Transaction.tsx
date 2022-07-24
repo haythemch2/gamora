@@ -16,7 +16,11 @@ const Transaction = ({ from, to, amount, Hash, name }: Props) => {
           {`${name} transaction`}
         </h3>
         <p className="mt-1 max-w-2xl text-sm text-blue-500">
-          <a href={`https://etherscan.io/tx/${Hash}`} target="_blank">
+          <a
+            href={`https://etherscan.io/tx/${Hash}`}
+            target="_blank"
+            rel="noreferrer"
+          >
             {`${Hash.slice(0, 25)}...`}{" "}
           </a>
         </p>
@@ -29,6 +33,7 @@ const Transaction = ({ from, to, amount, Hash, name }: Props) => {
               <a
                 href={`https://debank.com/profile/${from}`}
                 target="_blank"
+                rel="noreferrer"
                 className="text-blue-500 text-sm"
               >
                 {`${from.slice(0, 25)}...`}{" "}
@@ -41,6 +46,7 @@ const Transaction = ({ from, to, amount, Hash, name }: Props) => {
               <a
                 href={`https://debank.com/profile/${to}`}
                 target="_blank"
+                rel="noreferrer"
                 className="text-blue-500 text-sm"
               >
                 {`${to.slice(0, 25)}...`}{" "}
