@@ -15,16 +15,6 @@ const classNames = (...classes: any) => {
 type Props = {};
 
 const NavBar = (props: Props) => {
-  const [muted, setMuted] = useState<Boolean>(false);
-  const toggleMute = () => {
-    localStorage.setItem("muted", JSON.stringify(!muted));
-    setMuted((current) => !current);
-  };
-
-  useEffect(() => {
-    setMuted(JSON.parse(localStorage.getItem("muted") || ""));
-  }, []);
-
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -80,19 +70,7 @@ const NavBar = (props: Props) => {
                   type="button"
                   className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                 >
-                  {muted ? (
-                    <VolumeOffIcon
-                      className="h-6 w-6"
-                      aria-hidden="true"
-                      onClick={() => toggleMute()}
-                    />
-                  ) : (
-                    <BellIcon
-                      className="h-6 w-6"
-                      aria-hidden="true"
-                      onClick={() => toggleMute()}
-                    />
-                  )}
+                  <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
               </div>
             </div>
