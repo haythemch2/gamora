@@ -55,8 +55,8 @@ const Transaction = ({ from, to, amount, Hash, name }: Props) => {
           </div>
 
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">
-              Amount : <span className="text-red-400"> $ {amount}</span>
+            <dt className="text-sm font-medium text-red-500">
+              {`Amount : $ ${amount}`}
             </dt>
           </div>
         </dl>
