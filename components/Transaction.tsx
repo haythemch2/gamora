@@ -1,5 +1,6 @@
 import React from "react";
 import { PaperClipIcon } from "@heroicons/react/solid";
+import Image from "next/image";
 type Props = {
   name: String;
   from: String;
@@ -13,7 +14,13 @@ const Transaction = ({ from, to, amount, Hash, name }: Props) => {
     <div className="bg-white shadow overflow-hidden sm:rounded-lg mt-4">
       <div className="px-4 py-5 sm:px-6">
         <h3 className="text-lg leading-6 font-medium text-gray-900">
-          {`${name} transaction`}
+          <Image
+            src="/static/usdt.png"
+            width="16"
+            height="16"
+            className="mx-0.5"
+          />
+          {` ${name} transaction`}
         </h3>
         <p className="mt-1 max-w-2xl text-sm text-blue-500">
           <a
@@ -49,7 +56,7 @@ const Transaction = ({ from, to, amount, Hash, name }: Props) => {
                 rel="noreferrer"
                 className="text-blue-500 text-sm"
               >
-                {`${to.slice(0, 25)}...`}{" "}
+                {` ${to.slice(0, 25)}...`}{" "}
               </a>
             </dt>
           </div>
