@@ -146,7 +146,7 @@ const Magic = (props: Props) => {
 
   // Note: USDC uses 6 decimal places
   const [TRANSFER_THRESHOLD, setTRANSFER_THRESHOLD] =
-    useState<Number>(100000000000); //wei
+    useState<Number>(1000000000000); //wei
   const [name, setName] = useState<String>("");
   const [toSHow, setToSHow] = useState<transaction[]>([]);
   const [title, setTitle] = useState<String>("Awaiting connection");
