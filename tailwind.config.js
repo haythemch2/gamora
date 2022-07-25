@@ -7,4 +7,8 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+  variants: {
+    // ...
+    flexDirection: ["responsive"],
+  },
+};

@@ -144,12 +144,13 @@ const Magic = (props: Props) => {
     Hash: String;
   };
 
-  // Note: USDC uses 6 decimal places
+  // Note: USDT uses 6 decimal places
   const [TRANSFER_THRESHOLD, setTRANSFER_THRESHOLD] =
     useState<Number>(1000000000000); //wei
   const [name, setName] = useState<String>("");
   const [toSHow, setToSHow] = useState<transaction[]>([]);
   const [title, setTitle] = useState<String>("Awaiting connection");
+  const [searching, setSearching] = useState<Boolean>(false);
 
   const Listener = async () => {
     console.log("listener called");
@@ -159,6 +160,7 @@ const Magic = (props: Props) => {
     setTitle(
       `Whale tracker Started , Listening for large transfers on ${name}`
     );
+    setSearching(true);
     contract.on("Transfer", (from, to, amount, data) => {
       console.log(data);
 
@@ -189,8 +191,9 @@ const Magic = (props: Props) => {
   return (
     <div>
       <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
+        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-evenly items-center  flex-col sm:flex-row">
+          {searching && <Image src="/search.gif" width="128" height="128" />}
+          <h1 className="text-3xl font-bold text-gray-900 ">{title}</h1>
         </div>
       </header>
       <main>
