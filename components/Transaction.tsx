@@ -63,7 +63,10 @@ const Transaction = ({ from, to, amount, Hash, name }: Props) => {
 
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-red-500">
-              {`Amount : $ ${amount}`}
+              {`Amount :  ${amount.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}`}
             </dt>
           </div>
         </dl>
