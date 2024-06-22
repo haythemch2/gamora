@@ -1,10 +1,13 @@
 # Gamora
 
-> ERC20 Token Large transactions tracker
+> ERC20 transactions tracker tool
+
+<p align="center">
+  <img src="https://i.ibb.co/fvTsMsN/Screenshot-from-2024-06-22-21-34-42.png" width="600" title="hover text">
+</p>
 
 ### How to use
-All the magic is configured in `components/Magic.tsx`
-1. Update to your favortie RPC provider ( defaults to cloudflare `https://cloudflare-eth.com/` ) !
-2. Update `CONTRACT_ADDRESS` & `CONTRACT_ABI` to your ERC20 of choice ! 
-3. Update `TRANSFER_THRESHOLD` to your choice ( this can be annoying for small thresholds ) !
-3. run `yarn dev` or `npm run dev` to see the magic happening !
+1. First Adapt to your preferred provider for `provider` preset in `components/Magic.tsx` ( defaults to cloudflare `https://cloudflare-eth.com/` )
+2. Update `whiteListTokens` in `/config/index.ts` to your ERC20 symbols of choice ! 
+3. Verify `/tokens.json` has the main data for your tokens of choice ( mainly `address`, `symbol` & `decimals` ) !
+3. `build & serve` to find whales to track !

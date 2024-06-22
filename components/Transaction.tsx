@@ -1,77 +1,90 @@
 import React from "react";
-import { PaperClipIcon } from "@heroicons/react/solid";
 import Image from "next/image";
+import { Token } from "../types";
+
 type Props = {
-  name: String;
+  token: Token;
   from: String;
   to: String;
-  amount: Number;
+  amount: number;
   Hash: String;
+  timestamp: string | null;
 };
 
-const Transaction = ({ from, to, amount, Hash, name }: Props) => {
-  return (
-    <div className="bg-white shadow overflow-hidden sm:rounded-lg mt-4">
-      <div className="px-4 py-5 sm:px-6">
-        <h3 className="text-lg leading-6 font-medium text-gray-900">
-          <Image
-            src="/static/usdt.png"
-            width="16"
-            height="16"
-            className="mx-0.5"
-          />
-          {` ${name} transaction`}
-        </h3>
-        <p className="mt-1 max-w-2xl text-sm text-blue-500">
-          <a
-            href={`https://etherscan.io/tx/${Hash}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {`${Hash.slice(0, 25)}...`}{" "}
-          </a>
-        </p>
-      </div>
-      <div className="border-t border-gray-200">
-        <dl>
-          <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">
-              From :{" "}
-              <a
-                href={`https://debank.com/profile/${from}`}
-                target="_blank"
-                rel="noreferrer"
-                className="text-blue-500 text-sm"
-              >
-                {`${from.slice(0, 25)}...`}{" "}
-              </a>
-            </dt>
-          </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-gray-500">
-              To :
-              <a
-                href={`https://debank.com/profile/${to}`}
-                target="_blank"
-                rel="noreferrer"
-                className="text-blue-500 text-sm"
-              >
-                {` ${to.slice(0, 25)}...`}{" "}
-              </a>
-            </dt>
-          </div>
+const transactionThresholds = [
+  { threshold: 10000000, color: '#ffdede' }, // Soft red for extremely high value
+  { threshold: 500000, color: '#ffeded' }, // Light red for very high value
+  { threshold: 2000, color: '#ffe4e1' }, // Soft pink for high value
+  { threshold: 1000, color: '#fdfd96' }, // Soft yellow for medium-high value
+  { threshold: 500, color: '#d4f5d4' }, // Light green for medium value
+  { threshold: 100, color: '#e0e0e0' }, // Light gray for low value
+  { threshold: 0, color: '#f5f5f5' }, // Default light gray for regular transactions
+];
 
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="text-sm font-medium text-red-500">
-              {`Amount :  ${amount.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}`}
-            </dt>
-          </div>
-        </dl>
+
+const Transaction = ({ from, to, amount, Hash, token, timestamp }: Props) => {
+
+  const backgroundColor = transactionThresholds.find((threshold) => amount >= threshold.threshold)!.color;
+  const cardStyle = {
+    backgroundColor: backgroundColor,
+  };
+
+  return (
+    <div className="w-64 h-[13rem] bg-white shadow rounded-lg p-4 relative" style={cardStyle}>
+      <div className="w-full flex items-center justify-between mb-2">
+        <p className="absolute bottom-0 right-0 pr-2 text-xs text-gray-400">{timestamp}</p>
+        <h3 className="text-lg font-medium text-gray-900 flex items-center">
+          <Image
+            src="/static/transaction.png"
+            alt={token.symbol}
+            width={38}
+            height={38}
+            className="mr-1"
+          />
+         <p className="px-2">
+         {`${token.symbol} `}
+         </p>
+          <a
+          href={`https://etherscan.io/tx/${Hash}`}
+          target="_blank"
+          rel="noreferrer"
+          className="text-blue-500 text-sm text-nowrap"
+        >
+          / Etherscan /
+        </a>
+        </h3>
+      </div>
+      <div className="border-t border-gray-200 my-2 py-2">
+        <div className="text-sm text-gray-500">
+          <p>
+            <span className="font-medium text-gray-700">From:</span>{" "}
+            <a
+              href={`https://debank.com/profile/${from}`}
+              target="_blank"
+              rel="noreferrer"
+              className="text-blue-500"
+            >
+              {`${from.slice(0, 25)}...`}
+            </a>
+          </p>
+          <p>
+            <span className="font-medium text-gray-700">To:</span>{" "}
+            <a
+              href={`https://debank.com/profile/${to}`}
+              target="_blank"
+              rel="noreferrer"
+              className="text-blue-500"
+            >
+              {`${to.slice(0, 25)}...`}
+            </a>
+          </p>
+          <p className="w-full text-center text-red-700 font-bold text-xl pt-2">
+            {amount.toFixed(2)} <span>{ token.symbol}</span>
+          </p>
+        </div>
       </div>
     </div>
   );
 };
+
 export default Transaction;

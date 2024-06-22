@@ -11,7 +11,7 @@ const layout = ({ children }: Props) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Crypto USDT whales TRACKER</title>
+        <title>ERC20 TRACKER</title>
         <meta name="title" content="Crypto USDT whales TRACKER" />
         <meta
           name="description"
