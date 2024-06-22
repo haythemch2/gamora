@@ -7,9 +7,13 @@ import Header from "./Header";
 import TransactionList from "./TransactionList";
 import { getTransferTimestamp } from "../utils";
 import { whiteListTokens } from "../config";
+import { useAppSelector } from "../Redux/hooks";
+import { selectMute } from "../Redux/mainSlice";
 
 const Magic = () => {
   const [play] = useSound("/static/notif.mp3");
+  const muted = useAppSelector(selectMute);
+
   const [TRANSFER_THRESHOLD, setTRANSFER_THRESHOLD] = useState<number>(100);
   const [toShow, setToShow] = useState<TransactionType[]>([]);
   const [title, setTitle] = useState<string>("Please Select ERC20 Choice");
@@ -30,7 +34,9 @@ const Magic = () => {
     const transferHandler = async (from: string, to: string, amount: ethers.BigNumber, event: any) => {
       const transferAmount = amount.toNumber() / Math.pow(10, selectedToken.decimals);
       if (transferAmount >= TRANSFER_THRESHOLD) {
-        play();
+        if (!muted) {
+          play();
+        }
         const timestamp = await getTransferTimestamp(event, contract, provider);
         setToShow((current) => [
           {
